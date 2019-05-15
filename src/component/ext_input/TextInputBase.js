@@ -4,26 +4,31 @@ import PropTypes from 'prop-types';
 
 export default class TextInputBase extends Component {
     render() {
-        const {icon, text} = this.props
+        const {icon, text, etValue, textChange, visible} = this.props
         return (
             <View style={styles.container}>
                 <Image style={styles.image} source={icon} resizeMode='contain'/>
-                <TextInput placeholder={text}/>
+                <TextInput placeholder={text} value={etValue} onChangeText={textChange} secureTextEntry={visible}/>
             </View>
 
         );
     }
 };
 
-
 TextInputBase.propTypes = {
     icon: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
+    etValue: PropTypes.string,
+    textChange: PropTypes.string,
+    visible: PropTypes.bool
 }
 
 TextInputBase.defaultProps = {
     icon: '',
-    text: ''
+    text: '',
+    etValue: '',
+    textChange: '',
+    visible: false
 }
 
 const styles = StyleSheet.create({
@@ -44,6 +49,5 @@ const styles = StyleSheet.create({
 
     textInput: {
         flex: 1,
-        marginLeft: 5
     },
 });

@@ -1,6 +1,6 @@
 import {Text, Image} from 'react-native';
 import React, {Component} from 'react';
-import {Button} from 'native-base';
+import {Button} from 'native-base/index';
 import PropTypes from 'prop-types';
 
 export default class ExtButton extends Component {

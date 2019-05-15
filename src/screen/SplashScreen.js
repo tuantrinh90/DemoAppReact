@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Text, Card} from 'native-base';
-import {TouchableOpacity, FlatList, View} from 'react-native';
+import {Text, Card, Button} from 'native-base';
+//import {TouchableOpacity, FlatList, View, TextInput, ImageBackground} from 'react-native';
+import {StyleSheet, View, ImageBackground, TouchableOpacity, StatusBar} from 'react-native';
+import TextInputBase from '../component/ext_input/TextInputBase.js';
+// import {Button, Text} from 'native-base';
+import * as Icons from '../images';
+import * as Dimens from '../config/dimens.js';
+import * as StringUtils from '../config/string.js';
 
 export default class SplashScreen extends Component {
 
@@ -13,9 +19,23 @@ export default class SplashScreen extends Component {
                 {name: 'hung', age: 20},
                 {name: 'hai', age: 23}, {
                     name: 'long', age: 45
-                }, {name: 'thai', age: 67}]
+                }, {name: 'thai', age: 67}],
+
+            // value: '',
         }
     }
+
+    componentDidMount() {
+        StatusBar.setHidden(true);
+        setTimeout(() => {
+            this.load();
+        }, 2000);
+    }
+
+    load = () => {
+        this.props.navigation.navigate("Register");
+    };
+
 
     clearItem = (index) => {
         let data = [...this.state.myData]
@@ -25,31 +45,90 @@ export default class SplashScreen extends Component {
         console.log("122222::", data)
     };
 
+
     renderItem = (item) => {
         return <Card style={{padding: 20, marginRight: 20, marginLeft: 20}}>
             <Text>Ten: {item.item.name}</Text>
             <Text>Tuoi: {item.item.age}</Text>
-
-            <TouchableOpacity style={{position: 'absolute', top: 5, right: 5}}
-                              onPress={(index) => this.clearItem(index)}>
-                <Text>X</Text>
-            </TouchableOpacity>
+            {/**/}
+            {/*<TouchableOpacity style={{position: 'absolute', top: 5, right: 5}}*/}
+            {/*                  onPress={(index) => this.clearItem(index)}>*/}
+            {/*    <Text>X</Text>*/}
+            {/*</TouchableOpacity>*/}
         </Card>
     };
 
+    renderView = (data) => {
+        return <View>
+            <Text>Ten: {data.item.name}</Text>
+            <Text>Tuoi: {data.item.age}</Text>
+        </View>
+    };
+
+    clickItem(rowData) {
+        this.props.navigation.navigate('Register', {ClickItemHolder: rowData});
+    }
+
     render() {
         return (
-            <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-                    <Text>Splash Screen</Text>
-                </TouchableOpacity>
-
-                <FlatList
-                    data={this.state.myData}
-                    renderItem={(item) => this.renderItem(item)}
-                />
-            </View>
-
+            <ImageBackground source={Icons.ic_bg} style={styles.container}/>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    styleBtn: {
+        backgroundColor: '#19A397',
+        marginTop: Dimens.TOP_DIMEN,
+        height: 40
+    },
+
+    styleEmailandPass: {
+        fontWeight: 'normal',
+        fontSize: 16
+    },
+
+    signup: {
+        fontSize: 20,
+        margin: 10,
+        marginTop: 150,
+        marginLeft: 40,
+        color: '#333333',
+        fontWeight: 'bold'
+    },
+
+    text: {
+        fontSize: 18,
+        marginTop: 20,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        borderColor: '#19A397',
+        borderWidth: 1,
+        color: '#19A397',
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+
+    bottom: {
+        position: 'absolute',
+        bottom: 0,
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 36
+    },
+
+    lbText: {
+        color: '#333333',
+        marginLeft: 40,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+});
+

@@ -1,32 +1,80 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, ImageBackground, TouchableOpacity} from 'react-native';
-import TextInputBase from './component/ext_input/TextInputBase';
+import TextInputBase from './src/component/ext_input/TextInputBase';
 import {Button, Text} from 'native-base';
 import * as Icons from './src/images';
 import * as Dimens from './src/config/dimens';
 import * as StringUtils from './src/config/string';
-import {createStackNavigator, createAppContainer} from "react-navigation";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
 // type Props = {};
 import LoginScreen from './src/screen/LoginScreen';
 import SplashScreen from './src/screen/SplashScreen';
 import RegisterScreen from './src/screen/RegisterScreen';
+import HomeScreen from "./src/screen/HomeScreen";
 
 const appNavigator = createStackNavigator(
     {
         Splash: {
             screen: SplashScreen,
+            navigationOptions: {
+                header: null,
+            },
         },
         Register: {
             screen: RegisterScreen,
+            navigationOptions: {
+                header: null,
+            },
         },
         Login: {
             screen: LoginScreen,
+            navigationOptions: {
+                header: null,
+            },
+        },
+
+        Home: {
+            screen: HomeScreen,
         }
     },
     {
         initialRouteName: 'Splash',
     }
 );
+const TabNavigator = createBottomTabNavigator({
+        // Splash: SplashScreen,
+        Register: RegisterScreen,
+        Login: LoginScreen,
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            tabBarIcon: ({focused, horizontal, tintColor}) => {
+                const {routeName} = navigation.state;
+                let IconComponent = Ionicons;
+                let iconName;
+                // if (routeName === 'Splash') {
+                //     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+                //     // Sometimes we want to add badges to some icons.
+                //     // You can check the implementation below.
+                //     //IconComponent = HomeIconWithBadge;
+                // } else
+                if (routeName === 'Register') {
+                    iconName = `ios-checkmark-circle${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Login') {
+                    iconName = `md-settings`;
+                }
+
+                // You can return any component that you like here!
+                return <IconComponent name={iconName} size={25} color={tintColor}/>;
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+        },
+    });
+
 
 const AppContainer = createAppContainer(appNavigator);
 
