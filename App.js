@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ImageBackground, TouchableOpacity} from 'react-native';
-import TextInputBase from './src/component/ext_input/TextInputBase';
-import {Button, Text} from 'native-base';
-import * as Icons from './src/images';
+import {StyleSheet} from 'react-native';
 import * as Dimens from './src/config/dimens';
-import * as StringUtils from './src/config/string';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
-// type Props = {};
+import {createStackNavigator, createAppContainer} from "react-navigation";
 import LoginScreen from './src/screen/LoginScreen';
 import SplashScreen from './src/screen/SplashScreen';
 import RegisterScreen from './src/screen/RegisterScreen';
-import HomeScreen from "./src/screen/HomeScreen";
+import MainAppScreen from "./src/screen/MainAppScreen";
 
 const appNavigator = createStackNavigator(
     {
@@ -34,47 +28,14 @@ const appNavigator = createStackNavigator(
             },
         },
 
-        Home: {
-            screen: HomeScreen,
+        MainApp: {
+            screen: MainAppScreen,
         }
     },
     {
         initialRouteName: 'Splash',
     }
 );
-const TabNavigator = createBottomTabNavigator({
-        // Splash: SplashScreen,
-        Register: RegisterScreen,
-        Login: LoginScreen,
-    },
-    {
-        defaultNavigationOptions: ({navigation}) => ({
-            tabBarIcon: ({focused, horizontal, tintColor}) => {
-                const {routeName} = navigation.state;
-                let IconComponent = Ionicons;
-                let iconName;
-                // if (routeName === 'Splash') {
-                //     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-                //     // Sometimes we want to add badges to some icons.
-                //     // You can check the implementation below.
-                //     //IconComponent = HomeIconWithBadge;
-                // } else
-                if (routeName === 'Register') {
-                    iconName = `ios-checkmark-circle${focused ? '' : '-outline'}`;
-                } else if (routeName === 'Login') {
-                    iconName = `md-settings`;
-                }
-
-                // You can return any component that you like here!
-                return <IconComponent name={iconName} size={25} color={tintColor}/>;
-            },
-        }),
-        tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-        },
-    });
-
 
 const AppContainer = createAppContainer(appNavigator);
 
@@ -140,35 +101,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 });
-
-
-// return (
-//     <ImageBackground source={Icons.ic_bg} style={styles.container}>
-//         <View>
-//             <View style={{alignItems: 'flex-start'}}>
-//                 <Text style={styles.lbText}>{StringUtils.signUp}</Text>
-//                 <Text style={[styles.styleEmailandPass, {
-//                     color: '#333333',
-//                     marginLeft: 40,
-//                     fontSize: 20,
-//                     fontWeight: 'normal'
-//                 }]}>{StringUtils.emailAndPassword}</Text>
-//             </View>
-//             <View style={{marginTop: Dimens.TOP_DIMEN}}><TextInputBase icon={Icons.ic_mail}
-//                                                                        text={StringUtils.email}/></View>
-//             <View style={{marginTop: Dimens.TOP_DIMEN}}><TextInputBase icon={Icons.ic_lock}
-//                                                                        text={StringUtils.password}/></View>
-//             <Button block success rounded onPress={this.setText} style={styles.styleBtn}>
-//                 <Text style={{textTransform: 'capitalize'}}>{StringUtils.create}</Text>
-//             </Button>
-//         </View>
-//
-//         <View style={styles.bottom}>
-//             <TouchableOpacity onPress={() => {
-//             }}>
-//                 <Text style={styles.text}>{StringUtils.backToLogin}</Text>
-//             </TouchableOpacity>
-//         </View>
-//
-//     </ImageBackground>
-// );

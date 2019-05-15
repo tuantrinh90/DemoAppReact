@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Text, Card, Button} from 'native-base';
-//import {TouchableOpacity, FlatList, View, TextInput, ImageBackground} from 'react-native';
 import {StyleSheet, View, ImageBackground, TouchableOpacity, AsyncStorage} from 'react-native';
 import TextInputBase from '../component/ext_input/TextInputBase.js';
-// import {Button, Text} from 'native-base';
 import * as Icons from '../images';
 import * as Dimens from '../config/dimens.js';
 import * as StringUtils from '../config/string.js';
-import * as Storage from '../config/asyncStorage.js';
 
 export default class LoginScreen extends Component {
 
@@ -71,7 +68,7 @@ export default class LoginScreen extends Component {
             const passRegiter = await AsyncStorage.getItem('pass');
 
             if (emailRegister === this.state.etMail && passRegiter === this.state.etPass) {
-                this.props.navigation.navigate('Home')
+                this.props.navigation.navigate('MainApp')
             } else {
                 alert('wrong email and password');
             }

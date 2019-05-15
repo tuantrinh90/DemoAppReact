@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {Text, Card, Button} from 'native-base';
-//import {TouchableOpacity, FlatList, View, TextInput, ImageBackground} from 'react-native';
-import {StyleSheet, View, ImageBackground, TouchableOpacity, StatusBar} from 'react-native';
-import TextInputBase from '../component/ext_input/TextInputBase.js';
-// import {Button, Text} from 'native-base';
+import {Text, Card,} from 'native-base';
+import {StyleSheet, View, ImageBackground, StatusBar} from 'react-native';
 import * as Icons from '../images';
 import * as Dimens from '../config/dimens.js';
-import * as StringUtils from '../config/string.js';
 
 export default class SplashScreen extends Component {
 
